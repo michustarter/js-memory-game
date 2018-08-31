@@ -1,12 +1,12 @@
 describe('Game', function () {
-    it('should have 5 pieces after game start', function () {
+    it('should have 4 pieces after game start', function () {
         var pieces;
         //zwracam 4
         game.startGame();
 
         pieces = game.getPieces();
 
-        expect(pieces.length).toBe(5);
+        expect(pieces.length).toBe(4);
     });
 
     it('one pieces should be to guess after game start', function () {
@@ -14,6 +14,8 @@ describe('Game', function () {
         game.startGame();
 
         piecesToGuess = findPiecesToGuess(game.getPieces());
+        /*moze to byc 1 lub kafelków
+               wiecej do zgadniecia */
 
         expect(piecesToGuess.length).toBe(1);
     });
@@ -30,9 +32,10 @@ describe('Game', function () {
         expect(pieces.length).toBe(6);
     });
 
-
+    //ogolna dekl funkcji, spr w tescie jak to jest
     function findPiecesToGuess(pieces) {
-        return pieces.filter(function (piece) {
+        return pieces.filter(function (piece) { /* jak for each w javie, patrzec
+        na to jak nawiasy sie zamykają */
             return piece.toGuess;
         });
     }

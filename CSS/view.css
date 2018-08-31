@@ -1,0 +1,47 @@
+div { /* do wszystkich divów sie odnosi*/
+
+    background-color: antiquewhite;
+}
+.button {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 20px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.PLU { /* .nazwa_klasy*/
+    height: 100px;
+    width: 100px;
+    background-color: black;
+}
+
+/*tu nie podpowiada od razu klasy*/
+.klasa {
+    display: inline-block;
+    background-color: blue;
+    border: yellow groove;
+    height: 100px;
+    width: 100px;
+}
+.klasa2 {
+    display: inline-block;
+    background-color: saddlebrown;
+    border: yellow groove;
+    height: 80px;
+    width: 100px;
+}
+#piece {
+    display: inline-block;
+    background-color: blue;
+    border: yellow groove;
+    height: 100px;
+    width: 100px;
+}
+
+/* #nazwa_identyfikatora_id*/

@@ -3,14 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>start</title>
-
+    <link rel="stylesheet" type="text/css" href="CSS/view.css" media="screen"/>
 </head>
 <body>
+
+<H2 style="align-content: center">Memory Game</H2>
+
+<div>
+    <section class="buttons">
+        <button class="button" onclick="controller.startGame()">Start Game</button>
+        <button class="button" onclick="controller.highlight()">Hightlight</button>
+        <button class="button" onclick="controller.addPiece()">Add piece</button>
+
+    </section>
+    <section id="pieces">
+        <!-- miejsce na kafelki, puste-->
+    </section>
+
+</div>
+
 <script src="js/game.js"></script>
 <script src="js/controller.js"></script>
 <script src="js/view.js"></script>
-<H1 style="align-content: center">HAKUNA MATATA</H1>
-<button onclick="controller.startGame()">START GAME</button>
-
 </body>
 </html>
