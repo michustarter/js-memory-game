@@ -1,7 +1,29 @@
-div { /* do wszystkich divów sie odnosi*/
-
+div {
+    display: inline-block;
     background-color: antiquewhite;
 }
+
+section {
+    display: inline-block;
+    justify-content: center;
+    background-color: bisque;
+}
+
+.piece {
+    display: inline-block;
+    align-content: center;
+    background-color: blue;
+    border: yellow groove;
+    height: 100px;
+    width: 100px;
+}
+
+#pieces {
+    align-content: center;
+    width: 100vw;
+    margin-left: 50px;
+}
+
 .button {
     background-color: #4CAF50;
     border: none;
@@ -15,33 +37,8 @@ div { /* do wszystkich divów sie odnosi*/
     cursor: pointer;
 }
 
-.PLU { /* .nazwa_klasy*/
-    height: 100px;
-    width: 100px;
-    background-color: black;
+#info {
+    background-color: darkorange;
+    display: inline-block;
 }
 
-/*tu nie podpowiada od razu klasy*/
-.klasa {
-    display: inline-block;
-    background-color: blue;
-    border: yellow groove;
-    height: 100px;
-    width: 100px;
-}
-.klasa2 {
-    display: inline-block;
-    background-color: saddlebrown;
-    border: yellow groove;
-    height: 80px;
-    width: 100px;
-}
-#piece {
-    display: inline-block;
-    background-color: blue;
-    border: yellow groove;
-    height: 100px;
-    width: 100px;
-}
-
-/* #nazwa_identyfikatora_id*/

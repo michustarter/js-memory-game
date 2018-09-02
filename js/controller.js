@@ -1,29 +1,34 @@
 'use strict'
 var controller = function () {
     var startGame = function () {
-            var initialNumberOfPieces = view.getInitialNumberOfPieces();
+            var initialNumberOfPieces = game.getInitialNumberOfPieces();
 
             game.startGame({
                 numberOfPieces: initialNumberOfPieces
             });
 
-            view.renderPieces(game.getPieces());
+            view.displayPieces();
+            view.highlight();
 
         },
 
         addPiece = function () {
-            return view.addPiece();
+            game.addPiece();
+            view.displayPieces();
+            /*  game.getPieces(); - to wewnątrz view.highlight jest robione, - ale
+             gdzie będzie losowe ustawianie do zgadywania?*/
+            view.highlight();
         },
 
-        highlightPieces = function () {
-            game.determineNumberOfPiecesToLight();
-
+        highlight = function () {
+        game.getPieces();
+        view.highlight();
         };
 
     return {
         'startGame': startGame,
-        'addPiece': addPiece
-
+        'addPiece': addPiece,
+        'highlight': highlight
     }
 }();
 
