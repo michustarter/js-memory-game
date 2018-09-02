@@ -21,9 +21,9 @@ var game = (function () {
         },
 
         resetPiecesState = function () {
-            var i,
-                pieces=[],
-            currentNumberOfPieces = getCurrentNumberOfPieces();
+            var i;
+            pieces = [],
+                currentNumberOfPieces = getCurrentNumberOfPieces();
 
             for (i = 0; i < currentNumberOfPieces; i++) {
                 pieces.push({});
@@ -62,7 +62,7 @@ var game = (function () {
         },
 
         getCurrentNumberOfPiecesToGuess = function () {
-            currentNumberToGuess = getCurrentNumberOfPieces() - (3 + getCurrentLevel());
+            currentNumberToGuess = pieces.length - (3 + getCurrentLevel());
             return currentNumberToGuess;
         },
 

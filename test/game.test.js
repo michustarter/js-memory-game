@@ -13,7 +13,8 @@ describe('Game', function () {
         var piecesToGuess;
         game.startGame();
 
-        piecesToGuess = findPiecesToGuess(game.getPieces());
+        piecesToGuess = findPiecesToGuess(game.resetPiecesState());
+        //getPieces());
         /*moze to byc 1 lub kafelków
                wiecej do zgadniecia */
 
