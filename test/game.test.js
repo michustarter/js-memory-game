@@ -4,7 +4,7 @@ describe('Game', function () {
         //zwracam 4
         game.startGame();
 
-        pieces = game.getPieces();
+        pieces= game.resetPiecesState()
 
         expect(pieces.length).toBe(4);
     });

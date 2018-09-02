@@ -2,14 +2,16 @@
   "name": "game",
   "version": "1.0.0",
   "description": "jsgame",
-  "main": "index.js",
+  "main": "index.html",
   "scripts": {
-    "start": "http-server start",
+    "start": "npm run open",
+    "open": "concurrently \"http-server -a localhost -p 8080\" \"open http://localhost:8080/build\"",
     "test": "karma start karma.conf.js"
   },
   "author": "michal",
   "license": "ISC",
   "devDependencies": {
+    "concurrently": "^4.0.1",
     "jasmine-core": "^3.2.1",
     "karma": "^3.0.0",
     "karma-chrome-launcher": "^2.2.0",

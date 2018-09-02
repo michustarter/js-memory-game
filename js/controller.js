@@ -1,11 +1,16 @@
 'use strict'
 var controller = function () {
-    var startGame = function () {
-            var initialNumberOfPieces = game.getInitialNumberOfPieces();
-
-            game.startGame({
-                numberOfPieces: initialNumberOfPieces
-            });
+    var startGame = function (numberOfPieces) {
+            var initialNumberOfPieces = view.getInitialNumberOfPieces();
+            if(numberOfPieces) {
+                game.startGame(
+                    {numberOfPieces: numberOfPieces}
+                )
+            } else {
+                game.startGame({
+                    numberOfPieces: initialNumberOfPieces}
+                    )
+            }
 
             view.displayPieces();
             view.highlight();

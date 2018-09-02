@@ -21,7 +21,8 @@ var game = (function () {
         },
 
         resetPiecesState = function () {
-            var i;
+            var i,
+                pieces=[],
             currentNumberOfPieces = getCurrentNumberOfPieces();
 
             for (i = 0; i < currentNumberOfPieces; i++) {

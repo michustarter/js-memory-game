@@ -107,7 +107,11 @@ var view = function () {
         setPieceToGray = function (id) {
             var element = document.getElementById(id.toString());
             element.style.backgroundColor = "grey";
-        };
+        },
+
+        getInitialNumberOfPieces=function () {
+            return 4;
+        }
 
 
     return {
@@ -118,7 +122,8 @@ var view = function () {
         'startNextLevel': startNextLevel,
         'highlight': highlight,
         'setAllPiecesToGray': setAllPiecesToGray,
-        'setPieceToGray': setPieceToGray
+        'setPieceToGray': setPieceToGray,
+        'getInitialNumberOfPieces': getInitialNumberOfPieces
     };
 }();
 
