@@ -2,18 +2,18 @@
 var view = function () {
 
     var correctClick = 0,
-        initialNumberOfPieces=4,
-        guessFurther="guess further",
-        incorrectGuess="incorrect guess",
-        allGuessedCorrectly="all guessed correctly",
-        infoElement = document.getElementById("info"),
+        initialNumberOfPieces = 4,
+        guessFurther = "guess further",
+        incorrectGuess = "incorrect guess",
+        infoBox = document.getElementById("info"),
+        message = document.createElement("center"),
+        allGuessedCorrectly = "all guessed correctly",
 
-        displayPieces = function (checkGuessResultCbk) {
+        displayPieces = function (checkGuessResultCbk, numberToGuess) {
             var i,
-                elements,
                 initialPiece,
                 numberOfPieces = game.getCurrentNumberOfPieces(),
-            elements = document.getElementById("pieces");
+                elements = document.getElementById("pieces");
 
             elements.innerHTML = "";
 
@@ -24,6 +24,7 @@ var view = function () {
                 initialPiece.addEventListener("click", checkGuessResultCbk);
                 elements.appendChild(initialPiece);
             }
+            showNumberToGuess(numberToGuess);
         },
 
         checkGuessResult = function (i, pieces, currentNumberToGuess) {
@@ -32,6 +33,7 @@ var view = function () {
             if (pieces[i].toGuess === true) {
                 element.style.backgroundColor = "lawngreen";
                 correctClick++;
+                pieces[i].toGuess = false;
                 if (currentNumberToGuess === correctClick) {
                     correctClick = 0;
                     setTimeout(setAllPiecesToGrey, 1000, pieces);
@@ -40,21 +42,30 @@ var view = function () {
             } else {
                 correctClick = 0;
                 element.style.backgroundColor = "red";
-                setTimeout(setPieceToGrey, 1000,i.toString());
+                setTimeout(setPieceToGrey, 1000, i.toString());
                 return incorrectGuess;
             }
             return guessFurther;
         },
 
 
-
         gameLost = function (checkCbk) {
-            var information = document.createElement("center");
-            infoElement.innerHTML = "";
-            information.setAttribute("class", "information");
-            information.innerHTML = "Game lost ! :-(";
-            infoElement.appendChild(information);
-             displayPieces(checkCbk);
+            infoBox.innerHTML = "";
+            message.setAttribute("class", "message");
+            message.innerHTML = "Game lost ! :-(";
+            infoBox.appendChild(message);
+            displayPieces(checkCbk);
+        },
+
+        clearInfo = function () {
+            message.innerHTML = "";
+            infoBox.appendChild(message);
+        },
+
+        showNumberToGuess = function (numberToGuess) {
+            var levelInfo = document.getElementById("numberToGuess");
+            levelInfo.innerHTML = numberToGuess;
+
         },
 
         highlight = function (piecesState) {
@@ -74,7 +85,6 @@ var view = function () {
             var i,
                 element;
 
-
             for (i = 0; i < piecesState.length; i++) {
                 if (piecesState[i].toGuess === true) {
                     element = document.getElementById(i.toString());
@@ -88,16 +98,18 @@ var view = function () {
             element.style.backgroundColor = "darkgrey";
         },
 
-        getInitialNumberOfPieces=function () {
+        getInitialNumberOfPieces = function () {
             return initialNumberOfPieces;
         };
 
     return {
         'gameLost': gameLost,
         'highlight': highlight,
+        'clearInfo': clearInfo,
         'displayPieces': displayPieces,
         'setPieceToGrey': setPieceToGrey,
         'checkGuessResult': checkGuessResult,
+        'showNumberToGuess': showNumberToGuess,
         'setAllPiecesToGrey': setAllPiecesToGrey,
         'getInitialNumberOfPieces': getInitialNumberOfPieces
     };

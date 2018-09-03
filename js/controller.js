@@ -9,36 +9,37 @@ var controller = function () {
                 })
             } else {
                 game.startGame({
-                        numberOfPieces: initialNumberOfPieces
-                    })
+                    numberOfPieces: initialNumberOfPieces
+                })
             }
-            view.displayPieces(checkGuessResult);
+            view.displayPieces(checkGuessResult,game.getCurrentNumberOfPiecesToGuess());
             view.highlight(game.getCurrentPiecesState());
         },
 
         addPiece = function () {
             game.addPiece();
-            view.displayPieces(checkGuessResult);
+            view.displayPieces(checkGuessResult,game.getCurrentNumberOfPiecesToGuess());
             view.highlight(game.getCurrentPiecesState());
         },
 
         checkGuessResult = function (event) {
             var pieces = game.getCurrentPiecesState(),
                 currentNumberToGuess = game.getCurrentNumberOfPiecesToGuess(),
-                result = view.checkGuessResult(event.target.id, pieces, currentNumberToGuess);
-            if (result === "all guessed correctly") {
+                guessResult = view.checkGuessResult(event.target.id, pieces, currentNumberToGuess);
+            if (guessResult === "all guessed correctly") {
                 setTimeout(startNextLevel, 1500);
-            } else if (result === "incorrect guess") {
-                setTimeout(view.gameLost, 1500, checkGuessResult);
+            } else if (guessResult === "incorrect guess") {
+                view.gameLost(checkGuessResult);
+                setTimeout(view.clearInfo, 1000);
                 game.setInitialNumberOfPieces();
-
+                setTimeout(startGame, 1500);
             }
         },
 
         startNextLevel = function () {
             game.addPiece();
             game.getPieces();
-            view.displayPieces(checkGuessResult);
+            view.displayPieces(checkGuessResult,game.getCurrentNumberOfPiecesToGuess());
             view.highlight(game.getCurrentPiecesState());
         },
 
@@ -55,4 +56,3 @@ var controller = function () {
         'checkGuessResult': checkGuessResult
     }
 }();
-

@@ -41,8 +41,18 @@ body {
     border-radius: 15px;
 }
 
-#info {
+.info {
     background-color: darkorange;
+    justify-content: center;
+    font-size: xx-large;
+    display: inline-block;
+}
+
+.guessInfo {
+    border-radius: 25px;
+    background-color: chartreuse;
+    justify-content: center;
+    font-size: xx-large;
     display: inline-block;
 }
 

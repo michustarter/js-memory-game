@@ -8,14 +8,18 @@
 <body>
 
 <H2 style="align-content: center">Memory Game</H2>
-<section id="info"></section>
+<section class="info" id="info"></section>
 
 <div>
     <section id="buttons">
         <button class="button" onclick="controller.startGame()">Start Game</button>
-        <button class="button" onclick="controller.highlight()">Hightlight</button>
+        <button class="button" onclick="controller.highlight()">Highlight</button>
         <button class="button" onclick="controller.addPiece()">Add piece</button>
 
+    </section>
+    <br>
+    <section class="guessInfo">Pieces to guess:
+        <section id="numberToGuess"></section>
     </section>
     <section id="pieces"></section>
 
