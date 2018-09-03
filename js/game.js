@@ -1,14 +1,12 @@
-'use strict'
+'use strict';
 var game = (function () {
 
-    var initialNumberOfPieces = 4,
+    var pieces = [],
         currentLevel = 0,
-        pieces = [],
         indexesToGuess = [],
         currentNumberToGuess,
-        currentNumberOfPieces, //to jest = pieces.length - wybrać 1 lub 2,
-        // żeby potem w currentNOP nie zapomnieć o +- 1 gdzieś
-
+        currentNumberOfPieces = 4,
+        initialNumberOfPieces = 4,
 
         startGame = function (config) {
             if (config && config.numberOfPieces) {
@@ -16,14 +14,13 @@ var game = (function () {
             } else {
                 currentNumberOfPieces = initialNumberOfPieces;
             }
-            resetPiecesState();
             currentLevel = 0;
+            getPieces();
         },
 
         resetPiecesState = function () {
             var i;
-            pieces = [],
-                currentNumberOfPieces = getCurrentNumberOfPieces();
+            pieces = [];
 
             for (i = 0; i < currentNumberOfPieces; i++) {
                 pieces.push({});
@@ -35,13 +32,12 @@ var game = (function () {
         getPieces = function () {
             var i,
                 index;
-            indexesToGuess = [],
-                currentNumberOfPieces = getCurrentNumberOfPieces(),
-                currentNumberToGuess = getCurrentNumberOfPiecesToGuess();
+            indexesToGuess = [];
+            currentNumberToGuess = getCurrentNumberOfPiecesToGuess();
 
-            resetPiecesState(); // czy to nie bd nadmiarowe?
+            resetPiecesState();
 
-            while (indexesToGuess.length <= currentNumberToGuess) {
+            while (indexesToGuess.length < currentNumberToGuess) {
                 index = Math.floor((Math.random() * currentNumberOfPieces));
                 if (!indexesToGuess.includes(index)) {
                     indexesToGuess.push(index);
@@ -51,33 +47,30 @@ var game = (function () {
             for (i = 0; i < currentNumberOfPieces; i++) {
                 if (indexesToGuess.includes(i)) {
                     pieces[i].toGuess = true;
-                } //bez else i toGuess=false Bo wcześniej ustawiłem już na false
+                }
             }
             return pieces;
         },
 
         getCurrentNumberOfPieces = function () {
-            //currentNumberOfPieces = currentNumberOfPieces;//pieces.length;
             return currentNumberOfPieces;
         },
 
         getCurrentNumberOfPiecesToGuess = function () {
-            currentNumberToGuess = pieces.length - (3 + getCurrentLevel());
+            currentNumberToGuess = Math.floor(currentNumberOfPieces / 2) - 1;
             return currentNumberToGuess;
         },
 
         addPiece = function () {
-            currentNumberOfPieces = getCurrentNumberOfPieces() + 1;
-            currentLevel = getCurrentLevel() + 1;
+            currentNumberOfPieces++;
+            currentLevel++;
             resetPiecesState();
         },
+
         getCurrentLevel = function () {
             return currentLevel;
         },
-        setCurrentLevel = function (newLevel) { /* spr czy to wykorzystam gdzieś, czy potrzebne */
 
-            currentLevel = newLevel;
-        },
         getCurrentPiecesState = function () {
             return pieces;
         },
@@ -85,23 +78,23 @@ var game = (function () {
         getInitialNumberOfPieces = function () {
             return initialNumberOfPieces;
         },
+
         setInitialNumberOfPieces = function () {
             currentNumberOfPieces = initialNumberOfPieces;
             return currentNumberOfPieces;
         };
 
     return {
-        'startGame': startGame,
-        'getPieces': getPieces,
-        'resetPiecesState': resetPiecesState,
-        'getCurrentNumberOfPiecesToGuess': getCurrentNumberOfPiecesToGuess,
         'addPiece': addPiece,
+        'getPieces': getPieces,
+        'startGame': startGame,
         'getCurrentLevel': getCurrentLevel,
-        'setCurrentLevel': setCurrentLevel,
+        'resetPiecesState': resetPiecesState,
+        'getCurrentPiecesState': getCurrentPiecesState,
         'getInitialNumberOfPieces': getInitialNumberOfPieces,
         'getCurrentNumberOfPieces': getCurrentNumberOfPieces,
         'setInitialNumberOfPieces': setInitialNumberOfPieces,
-        'getCurrentPiecesState': getCurrentPiecesState
+        'getCurrentNumberOfPiecesToGuess': getCurrentNumberOfPiecesToGuess
     }
 })();
 

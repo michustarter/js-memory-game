@@ -1,128 +1,104 @@
 'use strict'
-
 var view = function () {
+
     var correctClick = 0,
+        initialNumberOfPieces=4,
+        guessFurther="guess further",
+        incorrectGuess="incorrect guess",
+        allGuessedCorrectly="all guessed correctly",
         infoElement = document.getElementById("info"),
-        addedIndex = game.getInitialNumberOfPieces(),
 
-
-        displayPieces = function () {
+        displayPieces = function (checkGuessResultCbk) {
             var i,
-                numberOfPieces = game.getCurrentNumberOfPieces(),
+                elements,
                 initialPiece,
-                elements;
-
+                numberOfPieces = game.getCurrentNumberOfPieces(),
             elements = document.getElementById("pieces");
+
             elements.innerHTML = "";
 
             for (i = 0; i < numberOfPieces; i++) {
                 initialPiece = document.createElement("div");
                 initialPiece.setAttribute("class", "piece");
                 initialPiece.setAttribute("id", i.toString());
-                initialPiece.setAttribute("onclick", "view.checkGuessResult(" + i + ")");
+                initialPiece.addEventListener("click", checkGuessResultCbk);
                 elements.appendChild(initialPiece);
             }
         },
 
-        checkGuessResult = function (i) {
-            var pieces = game.getCurrentPiecesState(),
-                currentNumberToGuess = game.getCurrentNumberOfPiecesToGuess(),
-                //jak błędy będą - to dać i.toString()...
-                element = document.getElementById(i.toString());
+        checkGuessResult = function (i, pieces, currentNumberToGuess) {
+            var element = document.getElementById(i.toString());
 
             if (pieces[i].toGuess === true) {
-                element.style.backgroundColor = "forestgreen";
+                element.style.backgroundColor = "lawngreen";
                 correctClick++;
                 if (currentNumberToGuess === correctClick) {
-                    setTimeout(setAllPiecesToGray(), 1000);
-                    setTimeout(startNextLevel(), 1500);
+                    correctClick = 0;
+                    setTimeout(setAllPiecesToGrey, 1000, pieces);
+                    return allGuessedCorrectly;
                 }
             } else {
                 correctClick = 0;
                 element.style.backgroundColor = "red";
-                setTimeout(setPieceToGray(i), 1000);
-                setTimeout(gameLost(), 1500);
+                setTimeout(setPieceToGrey, 1000,i.toString());
+                return incorrectGuess;
             }
+            return guessFurther;
         },
 
-        startNextLevel = function () {
-            game.addPiece(); //zwiększam level tutaj wewnątrz
-            game.getPieces();
-            displayPieces();
-            highlight();
-        },
 
-        gameLost = function () {
-            //  var element = document.getElementById("info");
+
+        gameLost = function (checkCbk) {
             var information = document.createElement("center");
             infoElement.innerHTML = "";
             information.setAttribute("class", "information");
             information.innerHTML = "Game lost ! :-(";
             infoElement.appendChild(information);
-            game.setInitialNumberOfPieces();
-            displayPieces();
-            // chyba tu nie daje displayPieces bo u mnie nie ma onload jak u N, tylko startGame musze nacisnąć..
+             displayPieces(checkCbk);
         },
 
-        addPiece = function () {
-            var piece,
-                element = document.getElementById("pieces");
-            //  alert("ffff");
-            piece = document.createElement("div");
-            piece.setAttribute("id", "piece");
-            piece.setAttribute("onclick", "controller.highlightPieces()");
-            piece.setAttribute("number", addedIndex.toString());
-            element.appendChild(piece);
-            addedIndex++;
-        },
-
-        highlight = function () {
-            //lub dać (pieces) a w controllerze game.getCurrentPiecesState...?
+        highlight = function (piecesState) {
             var i,
-                element,
-                pieces = game.getCurrentPiecesState();
+                element;
 
-            for (i = 0; i < pieces.length; i++) {
-                if (pieces[i].toGuess === true) {
+            for (i = 0; i < piecesState.length; i++) {
+                if (piecesState[i].toGuess === true) {
                     element = document.getElementById(i.toString());
-                    element.style.backgroundColor = "blue";
+                    element.style.backgroundColor = "dodgerblue";
                 }
             }
-            setTimeout(setAllPiecesToGray(), 2000);
+            setTimeout(setAllPiecesToGrey, 1000, piecesState);
         },
 
-        setAllPiecesToGray = function () {
+        setAllPiecesToGrey = function (piecesState) {
             var i,
-                element,
-                pieces = game.getCurrentPiecesState();
+                element;
 
-            for (i = 0; i < pieces.length; i++) {
-                if (pieces[i].toGuess === true) {
+
+            for (i = 0; i < piecesState.length; i++) {
+                if (piecesState[i].toGuess === true) {
                     element = document.getElementById(i.toString());
-                    element.style.backgroundColor = "grey";
+                    element.style.backgroundColor = "darkgrey";
                 }
             }
         },
 
-        setPieceToGray = function (id) {
+        setPieceToGrey = function (id) {
             var element = document.getElementById(id.toString());
-            element.style.backgroundColor = "grey";
+            element.style.backgroundColor = "darkgrey";
         },
 
         getInitialNumberOfPieces=function () {
-            return 4;
-        }
-
+            return initialNumberOfPieces;
+        };
 
     return {
-        'displayPieces': displayPieces,
-        'addPiece': addPiece,
-        'checkGuessResult': checkGuessResult,
         'gameLost': gameLost,
-        'startNextLevel': startNextLevel,
         'highlight': highlight,
-        'setAllPiecesToGray': setAllPiecesToGray,
-        'setPieceToGray': setPieceToGray,
+        'displayPieces': displayPieces,
+        'setPieceToGrey': setPieceToGrey,
+        'checkGuessResult': checkGuessResult,
+        'setAllPiecesToGrey': setAllPiecesToGrey,
         'getInitialNumberOfPieces': getInitialNumberOfPieces
     };
 }();
