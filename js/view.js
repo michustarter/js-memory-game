@@ -1,21 +1,24 @@
 'use strict'
+
 var view = function () {
 
-    var correctClick = 0,
+    var correctGuess = 0,
         initialNumberOfPieces = 4,
         guessFurther = "guess further",
         incorrectGuess = "incorrect guess",
+        allGuessedCorrectly = "all guessed correctly",
         infoBox = document.getElementById("info"),
         message = document.createElement("center"),
-        allGuessedCorrectly = "all guessed correctly",
 
         displayPieces = function (checkGuessResultCbk, numberToGuess) {
             var i,
+                elements,
                 initialPiece,
-                numberOfPieces = game.getCurrentNumberOfPieces(),
-                elements = document.getElementById("pieces");
+                numberOfPieces;
 
+            elements = document.getElementById("pieces");
             elements.innerHTML = "";
+            numberOfPieces = game.getCurrentNumberOfPieces();
 
             for (i = 0; i < numberOfPieces; i++) {
                 initialPiece = document.createElement("div");
@@ -32,17 +35,17 @@ var view = function () {
 
             if (pieces[i].toGuess === true) {
                 element.style.backgroundColor = "lawngreen";
-                correctClick++;
+                correctGuess++;
                 pieces[i].toGuess = false;
-                if (currentNumberToGuess === correctClick) {
-                    correctClick = 0;
+                if (currentNumberToGuess === correctGuess) {
+                    correctGuess = 0;
                     setTimeout(setAllPiecesToGrey, 1000, pieces);
                     return allGuessedCorrectly;
                 }
             } else {
-                correctClick = 0;
+                correctGuess = 0;
                 element.style.backgroundColor = "red";
-                setTimeout(setPieceToGrey, 1000, i.toString());
+                setTimeout(setPieceToGrey, 1500, i.toString);
                 return incorrectGuess;
             }
             return guessFurther;
@@ -65,7 +68,6 @@ var view = function () {
         showNumberToGuess = function (numberToGuess) {
             var levelInfo = document.getElementById("numberToGuess");
             levelInfo.innerHTML = numberToGuess;
-
         },
 
         highlight = function (piecesState) {
@@ -114,5 +116,3 @@ var view = function () {
         'getInitialNumberOfPieces': getInitialNumberOfPieces
     };
 }();
-
-

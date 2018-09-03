@@ -1,4 +1,5 @@
 'use strict'
+
 var controller = function () {
 
     var startGame = function (numberOfPieces) {
@@ -12,13 +13,13 @@ var controller = function () {
                     numberOfPieces: initialNumberOfPieces
                 })
             }
-            view.displayPieces(checkGuessResult,game.getCurrentNumberOfPiecesToGuess());
+            view.displayPieces(checkGuessResult, game.getCurrentNumberOfPiecesToGuess());
             view.highlight(game.getCurrentPiecesState());
         },
 
         addPiece = function () {
             game.addPiece();
-            view.displayPieces(checkGuessResult,game.getCurrentNumberOfPiecesToGuess());
+            view.displayPieces(checkGuessResult, game.getCurrentNumberOfPiecesToGuess());
             view.highlight(game.getCurrentPiecesState());
         },
 
@@ -26,6 +27,7 @@ var controller = function () {
             var pieces = game.getCurrentPiecesState(),
                 currentNumberToGuess = game.getCurrentNumberOfPiecesToGuess(),
                 guessResult = view.checkGuessResult(event.target.id, pieces, currentNumberToGuess);
+
             if (guessResult === "all guessed correctly") {
                 setTimeout(startNextLevel, 1500);
             } else if (guessResult === "incorrect guess") {
@@ -39,7 +41,7 @@ var controller = function () {
         startNextLevel = function () {
             game.addPiece();
             game.getPieces();
-            view.displayPieces(checkGuessResult,game.getCurrentNumberOfPiecesToGuess());
+            view.displayPieces(checkGuessResult, game.getCurrentNumberOfPiecesToGuess());
             view.highlight(game.getCurrentPiecesState());
         },
 
@@ -54,5 +56,5 @@ var controller = function () {
         'startGame': startGame,
         'startNextLevel': startNextLevel,
         'checkGuessResult': checkGuessResult
-    }
+    };
 }();

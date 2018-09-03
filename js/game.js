@@ -1,4 +1,5 @@
 'use strict';
+
 var game = (function () {
 
     var pieces = [],
@@ -62,8 +63,8 @@ var game = (function () {
         },
 
         addPiece = function () {
-            currentNumberOfPieces++;
             currentLevel++;
+            currentNumberOfPieces++;
             resetPiecesState();
         },
 
@@ -95,10 +96,5 @@ var game = (function () {
         'getCurrentNumberOfPieces': getCurrentNumberOfPieces,
         'setInitialNumberOfPieces': setInitialNumberOfPieces,
         'getCurrentNumberOfPiecesToGuess': getCurrentNumberOfPiecesToGuess
-    }
+    };
 })();
-
-
-
-
-
