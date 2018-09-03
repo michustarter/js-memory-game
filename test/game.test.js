@@ -1,7 +1,6 @@
 describe('Game', function () {
     it('should have 4 pieces after game start', function () {
         var pieces;
-        //zwracam 4
         game.startGame();
 
         pieces = game.resetPiecesState()
@@ -80,8 +79,8 @@ describe('Game', function () {
             config = {
                 numberOfPieces: 4
             };
-
         game.startGame(config);
+
         game.addPiece();
         pieces = game.getCurrentNumberOfPieces();
 
@@ -93,8 +92,8 @@ describe('Game', function () {
             config = {
                 numberOfPieces: 4
             };
-
         game.startGame(config);
+
         game.addPiece();
         level = game.getCurrentLevel();
 
@@ -107,8 +106,8 @@ describe('Game', function () {
             config = {
                 numberOfPieces: 7
             };
-
         game.startGame(config);
+
         pieces = game.getCurrentPiecesState();
 
         expect(pieces.length).toBe(7);
@@ -118,8 +117,8 @@ describe('Game', function () {
     it('should return 4 as initial number of pieces after game start', function () {
         var config,
             initialNumberOfPieces;
-
         game.startGame(config);
+
         initialNumberOfPieces = game.getInitialNumberOfPieces();
 
         expect(initialNumberOfPieces).toBe(4);
@@ -131,7 +130,8 @@ describe('Game', function () {
                 numberOfPieces: 7
             };
         game.startGame(config);
-        initialNumber=game.setInitialNumberOfPieces();
+
+        initialNumber = game.setInitialNumberOfPieces();
 
         expect(initialNumber).toBe(4);
     });
